@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import {Login} from './components/Login';
+import {Register} from './components/Register';
 import UserDashboard from './dashboard/User';
 import AdminDashboard from './dashboard/Admin';
 import Unauthorized from './components/Unauthorized';
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login/>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         
         {/* Ruta protegida para usuarios normales */}

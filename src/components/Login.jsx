@@ -10,15 +10,32 @@ export const Login = () => {
     const clientId = "909300115830-dl7o3cj0sn59ia8r019457j7asm64od0.apps.googleusercontent.com";
     const navigate = useNavigate();
 
-    const handleCredentialsSubmit = (e) => {
+    const handleCredentialsSubmit = async (e) => {
         e.preventDefault();
-        const credentials = { username: email, password };
-        axios.post("http://localhost:8080/auth/login", credentials)
-            .then(() => {
-                // Manejar redirección después de login normal si es necesario
-                navigate('/User'); // Ejemplo de redirección
-            })
-            .catch(console.log);
+        
+        try {
+            const credentials = { username: email, password };
+            const response = await axios.post("http://localhost:8080/auth/login", credentials);
+            
+            const { token, user } = response.data;
+            
+            // 1. Almacena el token
+            localStorage.setItem('jwtToken', token);
+            
+            // 2. Redirige según el rol (misma lógica que Google)
+            if (user?.role === 'ADMIN') {
+                navigate('/admin-dashboard');
+            } else if (user?.role === 'OWNER') {
+                navigate('/owner-dashboard');
+            } else {
+                navigate('/user-dashboard'); // Redirección por defecto para USER
+            }
+            
+        } catch (error) {
+            console.error("Error en autenticación:", error);
+            // Opcional: Mostrar notificación al usuario
+            alert("Credenciales incorrectas o error en el servidor");
+        }
     };
 
     const handleGoogleLogin = async (credentialResponse) => {
@@ -57,7 +74,7 @@ export const Login = () => {
                             <label htmlFor="email">Usuario / Email</label>
                             <input
                                 id="email"
-                                type="email"
+                                type="text"
                                 className="input-field"
                                 placeholder="lu@email.com"
                                 value={email}

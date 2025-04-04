@@ -1,0 +1,21 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: #213547; /* Cambiado para modo claro */
+  background-color: #ffffff; /* Cambiado para modo claro */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f5f5f5 !important; /* Fondo gris claro */
+}
+
+/* Elimina o comenta el @media (prefers-color-scheme: dark) si no necesitas modo oscuro */
